@@ -1,5 +1,7 @@
 # QMK Playground
 
+[![Build QMK firmware](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml/badge.svg)](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml)
+
 This project aims to provide a simple out-of-tree solution to build custom QMK keyboard firmware without having to install any tooling (other than Visual Studio Code and Docker). The build process is designed to run inside the official `qmk_cli` Docker image, and there's a devcontainer definition ready to use in Visual Studio Code. Finally, a GitHub action discovers, builds, and publishes all the firmwares on push.
 
 ## Usage:
@@ -17,11 +19,8 @@ This project aims to provide a simple out-of-tree solution to build custom QMK k
 
 ## CI/CD
 
-This project provides a GitHub action that builds and uploads the firmware for every keymap defined in `keyboards`. These firmwares can be found at the bottom of the summary of each CI run. Sadly, there's no way to retrieve these artifacts programmatically, so here we use [nightly.link](https://nightly.link/) to create permalinks to them. If you want to use it too, you need to install or authorize this app in your repository.
+This project provides a GitHub action that builds and uploads the firmware for every keymap defined in `keyboards`. These firmwares can be found at the bottom of the summary of each CI run. Sadly, there's no way to retrieve these artifacts programmatically, so down below we use [nightly.link](https://nightly.link/) to create permalinks to them. If you want to use it too, you need to authorize this app in your repository and change the link accordingly.
 
-## Prebuilt firmwares
+### Prebuilt firmwares
 
-[![Build QMK firmware](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml/badge.svg)](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml)
-
-* [preonic](https://nightly.link/agustinmista/qmk_playground/workflows/build/main/preonic.zip)
-* [thekey_v2](https://nightly.link/agustinmista/qmk_playground/workflows/build/main/thekey_v2.zip)
+The latest prebuilt firmware are available [here](https://nightly.link/agustinmista/qmk_playground/workflows/build/main).
