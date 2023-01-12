@@ -13,10 +13,11 @@ all: compile
 setup:
 	git submodule update --init --recursive
 
-# Build the keyboard firmware
+# Link the keymap and compile the keyboard firmware
 .PHONY: compile
 compile: setup
 	ln -snf $(shell pwd)/keyboards/$(KBD) qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
-	cd qmk_firmware; qmk lint -kb $(KBD_VARIANT) -km $(USER) --strict
-	make BUILD_DIR=$(shell pwd)/build -j1 -C qmk_firmware $(KBD_VARIANT):$(USER)
+	cd qmk_firmware && \
+		qmk lint --strict -kb $(KBD_VARIANT) -km $(USER) && \
+		qmk compile -e BUILD_DIR=$(shell pwd)/build -kb $(KBD_VARIANT) -km $(USER)
 	rm -f qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
