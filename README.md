@@ -12,3 +12,10 @@ $ make KBD=<the-kbd>
 
 Where `<the-kbd>` must be a folder defined inside `keyboards`. This folder must contain all the keymap files, as well as an `env` file defining the `KBD_PATH` and
 `KBD_VARIANT` variables. `KBD_PATH` should point to the relative path of the corresponding keyboard within `qmk_firmware/keyboards`, whereas `KBD_VARIANT` is the keyboard variant passed via `-kb` to `qmk_firmware`'s build system.
+
+# Prebuilt firmwares
+
+[![Build QMK firmware](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml/badge.svg)](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml)
+
+* [preonic](https://nightly.link/agustinmista/qmk_playground/workflows/build/main/preonic.zip)
+* [thekey_v2](https://nightly.link/agustinmista/qmk_playground/workflows/build/main/thekey_v2.zip)
