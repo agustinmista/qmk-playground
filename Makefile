@@ -16,7 +16,7 @@ setup:
 # Build the keyboard firmware
 .PHONY: compile
 compile: setup
-	rm -f qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
-	ln -s $(shell pwd)/keyboards/$(KBD) qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
+	ln -snf $(shell pwd)/keyboards/$(KBD) qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
 	cd qmk_firmware; qmk lint -kb $(KBD_VARIANT) -km $(USER) --strict
 	make BUILD_DIR=$(shell pwd)/build -j1 -C qmk_firmware $(KBD_VARIANT):$(USER)
+	rm -f qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
