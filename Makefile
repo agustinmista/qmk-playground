@@ -4,7 +4,7 @@ endif
 
 include keyboards/$(KBD)/env
 
-USER ?= agustinmista
+USER ?= qmk_playground
 
 all: compile
 
