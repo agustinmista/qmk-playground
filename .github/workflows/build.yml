@@ -1,0 +1,48 @@
+name: Build QMK firmware
+
+on: [push]
+
+env:
+  QMK_IMAGE: qmkfm/qmk_cli
+
+jobs:
+
+  create-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: set-matrix
+        run: echo "matrix=$(ls keyboards | jq -R '[.]' | jq -s -c 'add')" >> $GITHUB_OUTPUT
+
+  build:
+    needs: create-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        KBD: ${{ fromJson(needs.create-matrix.outputs.matrix) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: List files
+        run: ls -la
+      - name: Pull QMK cli Docker image
+        run: docker pull ${{ env.QMK_IMAGE }}
+      - name: Build firmware
+        run: |
+          docker run \
+            --volume ${{ github.workspace }}:/workspaces \
+            --workdir /workspaces \
+            --entrypoint /bin/bash \
+            ${{ env.QMK_IMAGE }} \
+            -c "make KBD=${{ matrix.KBD }}"
+      - name: Create artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.KBD }}
+          path: |
+            build/*.bin
+            build/*.hex
