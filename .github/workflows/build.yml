@@ -28,7 +28,7 @@ jobs:
         with:
           submodules: recursive
       - name: Fix dubious ownership issues
-        run: sudo git config --system --add safe.directory /workspaces
+        run: git config --global --add safe.directory '*'
       - name: Pull QMK cli Docker image
         run: docker pull ${{ env.QMK_IMAGE }}
       - name: Build firmware
