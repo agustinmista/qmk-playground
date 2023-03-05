@@ -36,7 +36,7 @@ jobs:
             --workdir /workspaces \
             --entrypoint /bin/bash \
             ${{ env.QMK_IMAGE }} \
-            -c "git config --global --add safe.directory /workspaces && make KBD=${{ matrix.KBD }}"
+            -c "sudo git config --system --add safe.directory /workspaces && make KBD=${{ matrix.KBD }}"
       - name: Create artifact
         uses: actions/upload-artifact@v2
         with:
