@@ -27,7 +27,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-          set-safe-directory: '/workspaces'
       - name: Pull QMK cli Docker image
         run: docker pull ${{ env.QMK_IMAGE }}
       - name: Build firmware
@@ -37,7 +36,7 @@ jobs:
             --workdir /workspaces \
             --entrypoint /bin/bash \
             ${{ env.QMK_IMAGE }} \
-            -c "make KBD=${{ matrix.KBD }}"
+            -c "git config --global --add safe.directory /workspaces && make KBD=${{ matrix.KBD }}"
       - name: Create artifact
         uses: actions/upload-artifact@v2
         with:
