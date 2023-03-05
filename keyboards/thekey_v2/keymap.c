@@ -22,10 +22,10 @@
 // The keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = LAYOUT(LT(1, KC_MPRV), LT(2, KC_MPLY), LT(3, KC_MNXT)),
-  [1] = LAYOUT(      _______,        KC_VOLD,        KC_VOLU),
-  [2] = LAYOUT(      RGB_RMOD,       _______,        RGB_MOD),
-  [3] = LAYOUT(      RGB_VAD,        RGB_VAI,        _______),
+  [0] = LAYOUT(LT(1, KC_F20), LT(2, KC_F21), LT(3, KC_F22)),
+  [1] = LAYOUT(      _______,       KC_F23,        KC_F24),
+  [2] = LAYOUT(      RGB_RMOD,      _______,       RGB_MOD),
+  [3] = LAYOUT(      RGB_VAD,       RGB_VAI,       _______),
 
 };
 
