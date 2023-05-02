@@ -19,8 +19,4 @@ This project aims to provide a simple out-of-tree solution to build custom QMK k
 
 ## CI/CD
 
-This project provides a GitHub action that builds and uploads the firmware for every keymap defined in `keyboards`. These firmwares can be found at the bottom of the summary of each CI run. Sadly, there's no way to retrieve these artifacts programmatically, so down below we use [nightly.link](https://nightly.link/) to create permalinks to them. If you want to use it too, you need to authorize this app in your repository and change the link accordingly.
-
-### Prebuilt firmwares
-
-The latest prebuilt firmware are available [here](https://nightly.link/agustinmista/qmk_playground/workflows/build/main).
+This project provides a GitHub action that builds and uploads the firmware for every keymap defined in `keyboards`. These firmwares can be found at the bottom of the summary of each CI run.
