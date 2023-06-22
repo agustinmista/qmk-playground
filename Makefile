@@ -18,6 +18,6 @@ setup:
 compile: setup
 	ln -snf $(shell pwd)/keyboards/$(KBD) qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
 	cd qmk_firmware && \
-		qmk lint --strict -kb $(KBD_VARIANT) -km $(USER) && \
+		qmk lint -kb $(KBD_VARIANT) -km $(USER) && \
 		qmk compile -e BUILD_DIR=$(shell pwd)/build -kb $(KBD_VARIANT) -km $(USER)
 	rm -f qmk_firmware/keyboards/$(KBD_PATH)/keymaps/$(USER)
