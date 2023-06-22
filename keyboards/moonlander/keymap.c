@@ -25,22 +25,60 @@
  */
 
 enum moonlander_layers {
-  _BASE,
-  _LOWER,
-  _RAISE,
-  _HYPER
+  BASE_LAYER,
+  LOWER_LAYER,
+  RAISE_LAYER,
+  HYPER_LAYER
 };
 
-#define _BASE_HSV  HSV_PURPLE
-#define _LOWER_HSV HSV_BLUE
-#define _RAISE_HSV HSV_GREEN
-#define _HYPER_HSV HSV_RED
+/*
+ * Layers colors
+ */
+
+#define BASE_RGB  RGB_TEAL
+#define LOWER_RGB RGB_BLUE
+#define RAISE_RGB RGB_GREEN
+#define HYPER_RGB RGB_RED
+
+// Change a single key in the RGB matrix to the color of a given layer
+void rgb_matrix_set_color_by_layer(uint8_t index, uint8_t layer) {
+  switch(layer) {
+    case BASE_LAYER:
+      rgb_matrix_set_color(index, BASE_RGB);
+      break;
+    case LOWER_LAYER:
+      rgb_matrix_set_color(index, LOWER_RGB);
+      break;
+    case RAISE_LAYER:
+      rgb_matrix_set_color(index, RAISE_RGB);
+      break;
+    case HYPER_LAYER:
+      rgb_matrix_set_color(index, HYPER_RGB);
+      break;
+  }
+}
+
+/*
+ * Custom keycodes
+ */
+
+enum moondlander_keycodes {
+  BASE = SAFE_RANGE,    // Set the default layer to BASE_LAYER
+  LOWER,                // Set the default layer to LOWER_LAYER
+  RAISE,                // Set the default layer to RAISE_LAYER
+  HYPER,                // Set the default layer to HYPER_LAYER
+  REMRGB                // Toggle remote RGB mode
+};
+
+/*
+ * Keycode aliases
+ */
 
 // Aliases for LT() to a particular layer
-#define LT_BSE(kc) LT(_BASE,kc)
-#define LT_LWR(kc) LT(_LOWER,kc)
-#define LT_RSE(kc) LT(_RAISE,kc)
-#define LT_HYP(kc) LT(_HYPER,kc)
+#define LT_BASE(kc) LT(BASE_LAYER,kc)
+#define LT_LOWER(kc) LT(LOWER_LAYER,kc)
+#define LT_RAISE(kc) LT(RAISE_LAYER,kc)
+#define LT_HYPER(kc) LT(HYPER_LAYER,kc)
 
 // Aliases for other combos
 #define WIN_TAB LGUI(KC_TAB)
@@ -49,114 +87,129 @@ enum moonlander_layers {
 #define MEH_SPC MEH(KC_SPC)
 
 /*
- * Custom keycodes
- */
-
-enum moondlander_keycodes {
-  BASE = SAFE_RANGE,    // Set the default layer to _BASE
-  LOWER,                // Set the default layer to _LOWER
-  RAISE,                // Set the default layer to _RAISE
-  HYPER,                // Set the default layer to _HYPER
-  REMRGB                // Toggle remote RGB mode
-};
-
-/*
  * Keymaps
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_BASE] = LAYOUT_moonlander(
+[BASE_LAYER] = LAYOUT_moonlander(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,           KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LGUI,          KC_PWR,            REMRGB,           VSC_WHC, KC_LBRC, KC_RBRC, KC_RCTL, KC_RCTL,
-                               LT_LWR(KC_SPC), KC_LALT, QK_LOCK,           KC_RALT, QK_LEAD, LT_RSE(KC_ENT)
+  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LGUI,          KC_PWR,            MU_TOGG,          VSC_WHC, KC_LBRC, KC_RBRC, KC_RCTL, KC_RCTL,
+                             LT_LOWER(KC_SPC), KC_LALT, QK_LOCK,           KC_RALT, QK_LEAD, LT_RAISE(KC_ENT)
 ),
 
-[_LOWER] = LAYOUT_moonlander(
+[LOWER_LAYER] = LAYOUT_moonlander(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,           _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
   WIN_TAB, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, _______,           _______, XXXXXXX, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_PIPE,
   MEH_SPC, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, _______,           _______, XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                             XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
   _______, _______, XXXXXXX, XXXXXXX, _______,          LOWER,             LOWER,            VSC_MEN, KC_LCBR, KC_RCBR, _______, _______,
-                                      _______, _______, _______,           _______, _______, LT_HYP(KC_BSPC)
+                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_BSPC)
 ),
 
-[_RAISE] = LAYOUT_moonlander(
+[RAISE_LAYER] = LAYOUT_moonlander(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,           _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   WIN_TAB, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, _______,           _______, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
   MEH_SPC, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, _______,           _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
   _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, XXXXXXX, XXXXXXX, _______,          RAISE,             RAISE,            VSC_MEN, XXXXXXX, XXXXXXX, _______, _______,
-                              LT_HYP(KC_DEL),  _______, _______,           _______, _______, _______
+                            LT_HYPER(KC_DEL),  _______, _______,           _______, _______, _______
 ),
 
-[_HYPER] = LAYOUT_moonlander(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOGG,           RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SPI,           RGB_MOD, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, AU_TOGG,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SPD,           RGB_RMOD,XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
+[HYPER_LAYER] = LAYOUT_moonlander(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, AU_TOGG,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, REMRGB,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX,          HYPER,             HYPER,            _______, XXXXXXX, XXXXXXX, _______, _______,
                                       _______, _______, _______,           _______, _______, _______
-)
-
-};
+)};
 
 /*
- * Songs
+ *  Songs
  */
-
-static float remote_rgb_on_song[][2]  = SONG(NUM_LOCK_ON_SOUND);
-static float remote_rgb_off_song[][2] = SONG(NUM_LOCK_OFF_SOUND);
 
 static float sticky_on_song[][2]  = SONG(E__NOTE(_A4), E__NOTE(_A4), E__NOTE(_C5),);
 static float sticky_off_song[][2] = SONG(E__NOTE(_C5), E__NOTE(_C5), E__NOTE(_A4),);
 
+static float remote_rgb_on_song[][2]  = SONG(NUM_LOCK_ON_SOUND);
+static float remote_rgb_off_song[][2] = SONG(NUM_LOCK_OFF_SOUND);
+
 static float leader_on_song[][2] = SONG(E__NOTE(_A5), E__NOTE(_A5),);
 static float leader_ok_song[][2] = SONG(E__NOTE(_A5), E__NOTE(_E6),);
 static float leader_ko_song[][2] = SONG(E__NOTE(_A5), HD_NOTE(_E4),);
-
-
-/*
- * Helpers
- */
-
-uint8_t old_rgb_mode;
-uint8_t old_rgb_speed;
-uint8_t old_rgb_hue;
-uint8_t old_rgb_sat;
-uint8_t old_rgb_val;
-
-void save_rgb_state(void) {
-  old_rgb_mode = rgb_matrix_get_mode();
-  old_rgb_speed = rgb_matrix_get_speed();
-  old_rgb_hue = rgb_matrix_get_hue();
-  old_rgb_sat = rgb_matrix_get_sat();
-  old_rgb_val = rgb_matrix_get_val();
-}
-
-void restore_rgb_state(void) {
-  rgb_matrix_mode_noeeprom(old_rgb_mode);
-  rgb_matrix_set_speed_noeeprom(old_rgb_speed);
-  rgb_matrix_sethsv_noeeprom(old_rgb_hue, old_rgb_sat, old_rgb_val);
-}
 
 /*
  * Initialization code
  */
 
 void keyboard_post_init_user(void) {
-  set_single_persistent_default_layer(_BASE);
+  set_single_persistent_default_layer(BASE_LAYER);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-  rgb_matrix_sethsv_noeeprom(_BASE_HSV);
+  rgb_matrix_set_color_all(BASE_RGB);
+}
+
+/*
+ * Remote RGB mode
+ */
+
+bool remote_rgb_mode = false;
+
+// This is used to restore the last color if the mode gets interrupted, e.g. by
+// entering the leader mode.
+RGB old_rgb_val;
+
+// Save the current RGB color
+void save_rgb_color(uint8_t r, uint8_t g, uint8_t b) {
+  old_rgb_val.r = r; old_rgb_val.g = g; old_rgb_val.b = b;
+}
+
+// Restore the previous RGB color
+void restore_rgb_color(void) {
+  rgb_matrix_set_color_all(
+    old_rgb_val.r, old_rgb_val.g, old_rgb_val.b);
+}
+
+// Toggle the remote RGB mode on and off
+void toggle_remote_rgb_mode(void) {
+  if(!remote_rgb_mode) {
+    save_rgb_color(RGB_YELLOW);
+    rgb_matrix_set_color_all(RGB_YELLOW);
+    PLAY_SONG(remote_rgb_on_song);
+    remote_rgb_mode = true;
+  } else {
+    PLAY_SONG(remote_rgb_off_song);
+    remote_rgb_mode = false;
+  }
+}
+
+// Handle incoming HID messages
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+  if (remote_rgb_mode) {
+    raw_hid_send(data, length);
+    uint8_t r = data[0], g = data[1], b = data[2];
+    save_rgb_color(r, g, b);
+    rgb_matrix_set_color_all(r, g, b);
+  }
 }
 
 /*
  * Leader mode
  */
 
+bool leader_mode = false;
+
+// Macros to trigger standard compose key sequences
+#define COMPOSE_KEY      SS_TAP(X_RALT)
+#define LOWER_ACUTE(kc)  SS_TAP(X_QUOT) SS_TAP(kc)
+#define UPPER_ACUTE(kc)  SS_TAP(X_QUOT) SS_LSFT(SS_TAP(kc))
+#define LOWER_UMLAUT(kc) SS_LSFT(SS_TAP(X_QUOT)) SS_TAP(kc)
+#define UPPER_UMLAUT(kc) SS_LSFT(SS_TAP(X_QUOT)) SS_LSFT(SS_TAP(kc))
+
+// Macros for registering key sequences
 #define ONE_KEY_SEQUENCE(kc1, str) \
   if (leader_sequence_one_key(kc1)) { SEND_STRING(str); return true; }
 #define TWO_KEYS_SEQUENCE(kc1, kc2, str) \
@@ -164,13 +217,7 @@ void keyboard_post_init_user(void) {
 #define THREE_KEYS_SEQUENCE(kc1, kc2, kc3, str) \
   if (leader_sequence_three_keys(kc1, kc2, kc3)) { SEND_STRING(str); return true; }
 
-#define COMPOSE_KEY      SS_TAP(X_RALT)
-#define LOWER_ACUTE(kc)  SS_TAP(X_QUOT) SS_TAP(kc)
-#define UPPER_ACUTE(kc)  SS_TAP(X_QUOT) SS_LSFT(SS_TAP(kc))
-#define LOWER_UMLAUT(kc) SS_LSFT(SS_TAP(X_QUOT)) SS_TAP(kc)
-#define UPPER_UMLAUT(kc) SS_LSFT(SS_TAP(X_QUOT)) SS_LSFT(SS_TAP(kc))
-
-
+// The dictionary of sequences
 bool process_leader_sequence(void) {
   // leader + T ==> Ctrl+Shift+t
   ONE_KEY_SEQUENCE(KC_T, SS_LCTL(SS_LSFT(SS_TAP(X_T))));
@@ -204,92 +251,57 @@ bool process_leader_sequence(void) {
   return false;
 }
 
-void set_leader_mode_rgb_state(void) {
-  rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-  rgb_matrix_set_speed_noeeprom(255);
-}
-
+// Start leader mode hook
 void leader_start_user(void) {
-  save_rgb_state();
-  set_leader_mode_rgb_state();
+  rgb_matrix_set_color_all(RGB_WHITE);
   PLAY_SONG(leader_on_song);
+  leader_mode = true;
 }
 
+// End leader mode hook
 void leader_end_user(void) {
   bool success = process_leader_sequence();
-  restore_rgb_state();
+  restore_rgb_color();
   if (success) {
     PLAY_SONG(leader_ok_song);
   } else {
     PLAY_SONG(leader_ko_song);
   }
-}
-
-/*
- * Remote RGB mode
- */
-
-bool remote_rgb_mode = false;
-
-#define HID_MSG_SIZE 32
-uint8_t hid_buffer[HID_MSG_SIZE];
-
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-  if (remote_rgb_mode) {
-    rgb_matrix_sethsv_noeeprom(data[0], data[1], data[2]);
-    raw_hid_send(data, length);
-  }
-}
-
-void set_remote_rgb_mode_rgb_state(void) {
-  rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-  rgb_matrix_sethsv_noeeprom(HSV_WHITE);
-}
-
-void toggle_remote_rgb_mode(void) {
-  if(!remote_rgb_mode) {
-    remote_rgb_mode = true;
-    save_rgb_state();
-    set_remote_rgb_mode_rgb_state();
-    PLAY_SONG(remote_rgb_on_song);
-  } else {
-    remote_rgb_mode = false;
-    restore_rgb_state();
-    PLAY_SONG(remote_rgb_off_song);
-  }
+  leader_mode = false;
 }
 
 /*
  * Process custom keycodes
  */
 
+// Set a given layer or revert to the base one if the given layer is already set
 void set_or_revert_default_layer(uint8_t layer) {
-  if (IS_LAYER_ON(layer)) {
+  if (IS_LAYER_ON(layer)) { // The layer is already set, move to the base layer
     set_single_persistent_default_layer(layer);
     PLAY_SONG(sticky_on_song);
-  } else {
-    set_single_persistent_default_layer(_BASE);
-    layer_move(_BASE);
+  } else { // The layer is not set, move to it
+    set_single_persistent_default_layer(BASE_LAYER);
+    layer_move(BASE_LAYER);
     PLAY_SONG(sticky_off_song);
   }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    // Sticky mode
+    // Sticky mode keycodes
     case LOWER:
       if (record->event.pressed) {
-        set_or_revert_default_layer(_LOWER);
+        set_or_revert_default_layer(LOWER_LAYER);
       }
       return false;
     case RAISE:
       if (record->event.pressed) {
-        set_or_revert_default_layer(_RAISE);
+        set_or_revert_default_layer(RAISE_LAYER);
       }
       return false;
     case HYPER:
       if (record->event.pressed) {
-        set_or_revert_default_layer(_HYPER);
+        set_or_revert_default_layer(HYPER_LAYER);
       }
       return false;
     // Remote RGB mode
@@ -304,28 +316,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 /*
- * Change backlight color depending on layer
+ * Change specific key colors depending on layer
  */
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
-  if (remote_rgb_mode) {
-    return state;
+  // Do not repaint if we are in a mode that overrides the default matrix
+  if (leader_mode || remote_rgb_mode) {
+    return false;
   }
 
-  switch (get_highest_layer(state | default_layer_state)) {
-    case _LOWER:
-      rgb_matrix_sethsv_noeeprom(_LOWER_HSV);
-      break;
-    case _RAISE:
-      rgb_matrix_sethsv_noeeprom(_RAISE_HSV);
-      break;
-    case _HYPER:
-      rgb_matrix_sethsv_noeeprom(_HYPER_HSV);
-      break;
-    default:
-      rgb_matrix_sethsv_noeeprom(_BASE_HSV);
-      break;
+  // Get the current layer
+  uint8_t layer = get_highest_layer(layer_state | default_layer_state);
+
+  // Paint each key
+  for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+    for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+
+      // Extract the index and keycode of the key
+      uint8_t index = g_led_config.matrix_co[row][col];
+      uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
+
+      // Only paint keys that are within bounds and have LEDs
+      if (index >= led_min && index < led_max && index != NO_LED) {
+
+        // Paint only keys that have something mapped to them using the current
+        // layer color or the base layer color if they are transparent.
+        switch(keycode) {
+          case KC_NO:
+            rgb_matrix_set_color(index, RGB_BLACK);
+            break;
+          case KC_TRNS:
+            rgb_matrix_set_color_by_layer(index, BASE_LAYER);
+            break;
+          default:
+            rgb_matrix_set_color_by_layer(index, layer);
+            break;
+        }
+      }
+    }
   }
-  return state;
+
+  return false;
 }
