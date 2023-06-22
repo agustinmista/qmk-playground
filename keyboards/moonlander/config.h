@@ -24,7 +24,7 @@
  * Leader key
  */
 #define LEADER_TIMEOUT 1000
-#define LEADER_PER_KEY_TIMING
+// #define LEADER_PER_KEY_TIMING
 
 /*
  * Disabling some RGB effects
