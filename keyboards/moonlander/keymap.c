@@ -1,6 +1,7 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
  * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ * Copyright 2023 Agustín Mista <agustin@mista.me>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +25,7 @@
  * Layers
  */
 
-enum moonlander_layers {
+enum keyboard_layers {
   BASE_LAYER,
   LOWER_LAYER,
   RAISE_LAYER,
@@ -40,29 +41,11 @@ enum moonlander_layers {
 #define RAISE_RGB RGB_GREEN
 #define HYPER_RGB RGB_RED
 
-// Change a single key in the RGB matrix to the color of a given layer
-void rgb_matrix_set_color_by_layer(uint8_t index, uint8_t layer) {
-  switch(layer) {
-    case BASE_LAYER:
-      rgb_matrix_set_color(index, BASE_RGB);
-      break;
-    case LOWER_LAYER:
-      rgb_matrix_set_color(index, LOWER_RGB);
-      break;
-    case RAISE_LAYER:
-      rgb_matrix_set_color(index, RAISE_RGB);
-      break;
-    case HYPER_LAYER:
-      rgb_matrix_set_color(index, HYPER_RGB);
-      break;
-  }
-}
-
 /*
  * Custom keycodes
  */
 
-enum moondlander_keycodes {
+enum keyboard_keycodes {
   BASE = SAFE_RANGE,    // Set the default layer to BASE_LAYER
   LOWER,                // Set the default layer to LOWER_LAYER
   RAISE,                // Set the default layer to RAISE_LAYER
@@ -85,48 +68,6 @@ enum moondlander_keycodes {
 #define VSC_MEN LCTL(LSFT(KC_P))
 #define VSC_WHC MEH(KC_P)
 #define MEH_SPC MEH(KC_SPC)
-
-/*
- * Keymaps
- */
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-[BASE_LAYER] = LAYOUT_moonlander(
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,           KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LPRN,          KC_PWR,            MU_TOGG,          KC_RPRN, XXXXXXX, XXXXXXX, KC_RCTL, KC_RCTL,
-                             LT_LOWER(KC_SPC), KC_LGUI, KC_LALT,           VSC_WHC, QK_LEAD, LT_RAISE(KC_ENT)
-),
-
-[LOWER_LAYER] = LAYOUT_moonlander(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,           _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-  MEH_SPC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, _______,           _______, XXXXXXX, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_PIPE,
-  TASK_VW, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, _______,           _______, XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
-  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                             XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LCBR,          LOWER,             LOWER,            KC_RCBR, XXXXXXX, XXXXXXX, _______, _______,
-                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_DEL)
-),
-
-[RAISE_LAYER] = LAYOUT_moonlander(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,           _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  MEH_SPC, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, _______,           _______, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
-  TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,           _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
-                            LT_HYPER(KC_BSPC), _______, _______,           _______, _______, _______
-),
-
-[HYPER_LAYER] = LAYOUT_moonlander(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_PSLS, QK_BOOT,
-  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_PAST, AU_TOGG,
-  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_PMNS, REMRGB,
-  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX,                             XXXXXXX, KC_0,    KC_COMM, KC_DOT,  KC_PPLS, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LABK,          HYPER,             HYPER,            KC_RABK, XXXXXXX, XXXXXXX, _______, _______,
-                                      _______, _______, _______,           _______, _______, _______
-)};
 
 /*
  *  Songs
@@ -153,30 +94,50 @@ void keyboard_post_init_user(void) {
 }
 
 /*
+ * RGB helpers
+ */
+
+// This is used to restore the last color when a mode interrupts another.
+RGB old_rgb_val;
+
+// Save the current RGB color
+void rgb_matrix_save_color(uint8_t r, uint8_t g, uint8_t b) {
+  old_rgb_val.r = r; old_rgb_val.g = g; old_rgb_val.b = b;
+}
+
+// Restore the previous RGB color
+void rgb_matrix_restore_color(void) {
+  rgb_matrix_set_color_all(old_rgb_val.r, old_rgb_val.g, old_rgb_val.b);
+}
+
+// Change a single key in the RGB matrix to the color of a given layer
+void rgb_matrix_set_color_by_layer(uint8_t index, uint8_t layer) {
+  switch(layer) {
+    case BASE_LAYER:
+      rgb_matrix_set_color(index, BASE_RGB);
+      break;
+    case LOWER_LAYER:
+      rgb_matrix_set_color(index, LOWER_RGB);
+      break;
+    case RAISE_LAYER:
+      rgb_matrix_set_color(index, RAISE_RGB);
+      break;
+    case HYPER_LAYER:
+      rgb_matrix_set_color(index, HYPER_RGB);
+      break;
+  }
+}
+
+/*
  * Remote RGB mode
  */
 
 bool remote_rgb_mode = false;
 
-// This is used to restore the last color if the mode gets interrupted, e.g. by
-// entering the leader mode.
-RGB old_rgb_val;
-
-// Save the current RGB color
-void save_rgb_color(uint8_t r, uint8_t g, uint8_t b) {
-  old_rgb_val.r = r; old_rgb_val.g = g; old_rgb_val.b = b;
-}
-
-// Restore the previous RGB color
-void restore_rgb_color(void) {
-  rgb_matrix_set_color_all(
-    old_rgb_val.r, old_rgb_val.g, old_rgb_val.b);
-}
-
 // Toggle the remote RGB mode on and off
-void toggle_remote_rgb_mode(void) {
+void remote_rgb_toggle(void) {
   if(!remote_rgb_mode) {
-    save_rgb_color(RGB_YELLOW);
+    rgb_matrix_save_color(RGB_YELLOW);
     rgb_matrix_set_color_all(RGB_YELLOW);
     PLAY_SONG(remote_rgb_on_song);
     remote_rgb_mode = true;
@@ -191,7 +152,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
   if (remote_rgb_mode) {
     raw_hid_send(data, length);
     uint8_t r = data[0], g = data[1], b = data[2];
-    save_rgb_color(r, g, b);
+    rgb_matrix_save_color(r, g, b);
     rgb_matrix_set_color_all(r, g, b);
   }
 }
@@ -261,7 +222,7 @@ void leader_start_user(void) {
 // End leader mode hook
 void leader_end_user(void) {
   bool success = process_leader_sequence();
-  restore_rgb_color();
+  rgb_matrix_restore_color();
   if (success) {
     PLAY_SONG(leader_ok_song);
   } else {
@@ -307,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Remote RGB mode
     case REMRGB:
       if (record->event.pressed) {
-        toggle_remote_rgb_mode();
+        remote_rgb_toggle();
       }
       return false;
   }
@@ -321,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
-  // Do not repaint if we are in a mode that overrides the default matrix
+  // Do not repaint if we are in a mode that overrides the default layer color
   if (leader_mode || remote_rgb_mode) {
     return false;
   }
@@ -359,3 +320,45 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
   return false;
 }
+
+/*
+ * Keymaps
+ */
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+[BASE_LAYER] = LAYOUT_moonlander(
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,           KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LPRN,          KC_PWR,            MU_TOGG,          KC_RPRN, XXXXXXX, XXXXXXX, KC_RCTL, KC_RCTL,
+                             LT_LOWER(KC_SPC), KC_LGUI, KC_LALT,           VSC_WHC, QK_LEAD, LT_RAISE(KC_ENT)
+),
+
+[LOWER_LAYER] = LAYOUT_moonlander(
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,           _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
+  MEH_SPC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, _______,           _______, XXXXXXX, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_PIPE,
+  TASK_VW, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, _______,           _______, XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
+  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                             XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
+  _______, _______, XXXXXXX, XXXXXXX, KC_LCBR,          LOWER,             LOWER,            KC_RCBR, XXXXXXX, XXXXXXX, _______, _______,
+                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_DEL)
+),
+
+[RAISE_LAYER] = LAYOUT_moonlander(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,           _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  MEH_SPC, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, _______,           _______, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
+  TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,           _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
+                            LT_HYPER(KC_BSPC), _______, _______,           _______, _______, _______
+),
+
+[HYPER_LAYER] = LAYOUT_moonlander(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_PSLS, QK_BOOT,
+  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_PAST, AU_TOGG,
+  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_PMNS, REMRGB,
+  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX,                             XXXXXXX, KC_0,    KC_COMM, KC_DOT,  KC_PPLS, _______,
+  _______, _______, XXXXXXX, XXXXXXX, KC_LABK,          HYPER,             HYPER,            KC_RABK, XXXXXXX, XXXXXXX, _______, _______,
+                                      _______, _______, _______,           _______, _______, _______
+)};
