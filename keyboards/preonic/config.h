@@ -19,11 +19,6 @@
 /*
  * Leader key
  */
+
 #define LEADER_TIMEOUT 500
 #define LEADER_PER_KEY_TIMING
-
-/*
- * Mouse options
- */
-
-#define MOUSEKEY_MAX_SPEED 5
