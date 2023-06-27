@@ -88,7 +88,6 @@ static float leader_ko_song[][2] = SONG(E__NOTE(_A5), HD_NOTE(_E4),);
  */
 
 void keyboard_post_init_user(void) {
-  set_single_persistent_default_layer(BASE_LAYER);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
   rgb_matrix_set_color_all(BASE_RGB);
 }
@@ -232,20 +231,32 @@ void leader_end_user(void) {
 }
 
 /*
- * Process custom keycodes
+ * Sticky layers
  */
 
+uint16_t sticky_layer = BASE_LAYER;
+
+// Like set_single_persistent_default_layer but without writing to EEPROM
+void set_single_default_layer(uint16_t layer) {
+  default_layer_set((layer_state_t)1 << layer);
+}
+
 // Set a given layer or revert to the base one if the given layer is already set
-void set_or_revert_default_layer(uint8_t layer) {
-  if (IS_LAYER_ON(layer)) { // The layer is already set, move to the base layer
-    set_single_persistent_default_layer(layer);
-    PLAY_SONG(sticky_on_song);
-  } else { // The layer is not set, move to it
-    set_single_persistent_default_layer(BASE_LAYER);
-    layer_move(BASE_LAYER);
+void set_or_revert_default_layer(uint16_t layer) {
+  if (sticky_layer == layer) { // The layer is already set, move to the base layer
+    sticky_layer = BASE_LAYER;
+    set_single_default_layer(BASE_LAYER);
     PLAY_SONG(sticky_off_song);
+  } else { // The layer is not set, move to it
+    sticky_layer = layer;
+    set_single_default_layer(layer);
+    PLAY_SONG(sticky_on_song);
   }
 }
+
+/*
+ * Process custom keycodes
+ */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -347,7 +358,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [RAISE_LAYER] = LAYOUT_moonlander(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,           _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  MEH_SPC, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, _______,           _______, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
+  MEH_SPC, XXXXXXX, KC_BTN2, KC_MS_U, KC_BTN1, XXXXXXX, _______,           _______, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
   TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,           _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
