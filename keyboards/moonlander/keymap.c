@@ -96,19 +96,6 @@ void keyboard_post_init_user(void) {
  * RGB helpers
  */
 
-// This is used to restore the last color when a mode interrupts another.
-RGB old_rgb_val;
-
-// Save the current RGB color
-void rgb_matrix_save_color(uint8_t r, uint8_t g, uint8_t b) {
-  old_rgb_val.r = r; old_rgb_val.g = g; old_rgb_val.b = b;
-}
-
-// Restore the previous RGB color
-void rgb_matrix_restore_color(void) {
-  rgb_matrix_set_color_all(old_rgb_val.r, old_rgb_val.g, old_rgb_val.b);
-}
-
 // Change a single key in the RGB matrix to the color of a given layer
 void rgb_matrix_set_color_by_layer(uint8_t index, uint8_t layer) {
   switch(layer) {
@@ -136,7 +123,6 @@ bool remote_rgb_mode = false;
 // Toggle the remote RGB mode on and off
 void remote_rgb_toggle(void) {
   if(!remote_rgb_mode) {
-    rgb_matrix_save_color(RGB_YELLOW);
     rgb_matrix_set_color_all(RGB_YELLOW);
     PLAY_SONG(remote_rgb_on_song);
     remote_rgb_mode = true;
@@ -151,8 +137,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
   if (remote_rgb_mode) {
     raw_hid_send(data, length);
     uint8_t r = data[0], g = data[1], b = data[2];
-    rgb_matrix_save_color(r, g, b);
-    rgb_matrix_set_color_all(r, g, b);
+    uint8_t y = data[3], x = data[4];
+    uint8_t i = g_led_config.matrix_co[y][x];
+    rgb_matrix_set_color(i, r, g, b);
   }
 }
 
@@ -213,7 +200,9 @@ bool process_leader_sequence(void) {
 
 // Start leader mode hook
 void leader_start_user(void) {
-  rgb_matrix_set_color_all(RGB_WHITE);
+  if (!remote_rgb_mode) {
+    rgb_matrix_set_color_all(RGB_WHITE);
+  }
   PLAY_SONG(leader_on_song);
   leader_mode = true;
 }
@@ -221,7 +210,6 @@ void leader_start_user(void) {
 // End leader mode hook
 void leader_end_user(void) {
   bool success = process_leader_sequence();
-  rgb_matrix_restore_color();
   if (success) {
     PLAY_SONG(leader_ok_song);
   } else {
