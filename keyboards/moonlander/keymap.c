@@ -120,26 +120,65 @@ void rgb_matrix_set_color_by_layer(uint8_t index, uint8_t layer) {
 
 bool remote_rgb_mode = false;
 
+typedef enum {
+  REMOTE_RGB_START = 0,
+  REMOTE_RGB_STOP,
+  REMOTE_RGB_SET_COLOR
+} REMOTE_RGB_MESSAGE_KIND;
+
 // Toggle the remote RGB mode on and off
+void remote_rgb_start(void) {
+  rgb_matrix_set_color_all(RGB_YELLOW);
+  PLAY_SONG(remote_rgb_on_song);
+  remote_rgb_mode = true;
+}
+
+void remote_rgb_stop(void) {
+  PLAY_SONG(remote_rgb_off_song);
+  remote_rgb_mode = false;
+}
+
 void remote_rgb_toggle(void) {
   if(!remote_rgb_mode) {
-    rgb_matrix_set_color_all(RGB_YELLOW);
-    PLAY_SONG(remote_rgb_on_song);
-    remote_rgb_mode = true;
+    remote_rgb_start();
   } else {
-    PLAY_SONG(remote_rgb_off_song);
-    remote_rgb_mode = false;
+    remote_rgb_stop();
   }
 }
 
-// Handle incoming HID messages
+// Parse a SET_COLOR message and set the RGB matrix accordingly:
+// * data[0]: message_kind
+// * data[1-3]: r,g,b values
+// * data[4]: count
+// * data[5-7]: unused
+// * data[8-31]: payload (up to 12 sequential pairs of row/column indices)
+void remote_rgb_set_color(uint8_t *data) {
+  uint8_t r = data[1], g = data[2], b = data[3];
+  uint8_t count = data[4];
+  uint8_t *payload = &data[8];
+  for (int i = 0; i < count; i++) {
+    uint8_t row = payload[2*i], col = payload[2*i+1];
+    uint8_t index = g_led_config.matrix_co[row][col];
+    rgb_matrix_set_color(index, r, g, b);
+  }
+}
+
+// Dispatch incoming HID messages
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-  if (remote_rgb_mode) {
-    raw_hid_send(data, length);
-    uint8_t r = data[0], g = data[1], b = data[2];
-    uint8_t y = data[3], x = data[4];
-    uint8_t i = g_led_config.matrix_co[y][x];
-    rgb_matrix_set_color(i, r, g, b);
+  switch (data[0]) {
+    case REMOTE_RGB_START:
+      remote_rgb_start();
+      break;
+    case REMOTE_RGB_STOP:
+      remote_rgb_stop();
+      break;
+    case REMOTE_RGB_SET_COLOR:
+      if (remote_rgb_mode) {
+        remote_rgb_set_color(data);
+      }
+      break;
+    default:
+      break;
   }
 }
 
