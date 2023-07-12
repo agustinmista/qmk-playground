@@ -128,7 +128,7 @@ typedef enum {
 
 // Toggle the remote RGB mode on and off
 void remote_rgb_start(void) {
-  rgb_matrix_set_color_all(RGB_YELLOW);
+  rgb_matrix_set_color_all(RGB_BLACK);
   PLAY_SONG(remote_rgb_on_song);
   remote_rgb_mode = true;
 }
