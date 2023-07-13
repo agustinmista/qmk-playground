@@ -326,7 +326,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MEH_SPC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_PIPE,
   TASK_VW, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_LCBR, KC_RCBR, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
-  _______, _______, _______, _______,     _______,      LT_HYPER(KC_DEL), _______, _______, LOWER,   _______
+  _______, _______, _______, _______,     _______,      LT_HYPER(KC_BSPC),_______, _______, LOWER,   _______
 ),
 
 [RAISE_LAYER] = LAYOUT_preonic_2x2u(
@@ -334,7 +334,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MEH_SPC, XXXXXXX, KC_BTN2, KC_MS_U, KC_BTN1, XXXXXXX, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
   TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  _______, _______, _______, _______, LT_HYPER(KC_BSPC),    _______,      _______, _______, RAISE,   _______
+  _______, _______, _______, _______, LT_HYPER(KC_DEL),     _______,      _______, _______, RAISE,   _______
 ),
 
 [HYPER_LAYER] = LAYOUT_preonic_2x2u(

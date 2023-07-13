@@ -380,7 +380,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TASK_VW, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, _______,           _______, XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                             XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
   _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          LOWER,             LOWER,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
-                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_DEL)
+                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_BSPC)
 ),
 
 [RAISE_LAYER] = LAYOUT_moonlander(
@@ -389,7 +389,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,           _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
-                            LT_HYPER(KC_BSPC), _______, _______,           _______, _______, _______
+                             LT_HYPER(KC_DEL), _______, _______,           _______, _______, _______
 ),
 
 [HYPER_LAYER] = LAYOUT_moonlander(
