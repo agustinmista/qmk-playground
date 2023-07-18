@@ -68,6 +68,8 @@ enum keyboard_keycodes {
 #define VSC_MEN LCTL(LSFT(KC_P))
 #define VSC_WHC MEH(KC_P)
 #define MEH_SPC MEH(KC_SPC)
+#define FF_PTAB LCTL(KC_PGDN)
+#define FF_NTAB LCTL(KC_PGUP)
 
 /*
  *  Songs
@@ -370,8 +372,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LCBR,          KC_PWR,            MU_TOGG,          KC_RCBR, XXXXXXX, XXXXXXX, KC_RCTL, KC_RCTL,
-                             LT_LOWER(KC_SPC), KC_LALT, KC_LGUI,           VSC_WHC, QK_LEAD, LT_RAISE(KC_ENT)
+  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LCBR,          QK_LEAD,           QK_LEAD,           KC_RCBR, XXXXXXX, XXXXXXX, KC_RCTL, KC_RCTL,
+                             LT_LOWER(KC_SPC), KC_LALT, KC_LGUI,           VSC_MEN, VSC_WHC, LT_RAISE(KC_ENT)
 ),
 
 [LOWER_LAYER] = LAYOUT_moonlander(
@@ -385,7 +387,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [RAISE_LAYER] = LAYOUT_moonlander(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,           _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  MEH_SPC, XXXXXXX, KC_BTN2, KC_MS_U, KC_BTN1, XXXXXXX, _______,           _______, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
+  MEH_SPC, XXXXXXX, KC_BTN2, KC_MS_U, KC_BTN1, XXXXXXX, _______,           _______, XXXXXXX, FF_PTAB, KC_UP,   FF_NTAB, XXXXXXX, XXXXXXX,
   TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,           _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
@@ -393,10 +395,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [HYPER_LAYER] = LAYOUT_moonlander(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_PSLS, QK_BOOT,
-  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_PAST, AU_TOGG,
-  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_PMNS, REMRGB,
-  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX,                             XXXXXXX, KC_0,    KC_COMM, KC_DOT,  KC_PPLS, _______,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_TOGG,           MU_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, XXXXXXX, XXXXXXX, KC_LABK,          HYPER,             HYPER,            KC_RABK, XXXXXXX, XXXXXXX, _______, _______,
                                       _______, _______, _______,           _______, _______, _______
 )};
