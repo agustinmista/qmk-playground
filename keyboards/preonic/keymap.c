@@ -51,7 +51,7 @@ enum keyboard_keycodes {
   LOWER,                // Set the default layer to LOWER_LAYER
   RAISE,                // Set the default layer to RAISE_LAYER
   HYPER,                // Set the default layer to HYPER_LAYER
-  REMRGB                // Toggle remote RGB mode
+  REM_RGB               // Toggle remote RGB mode
 };
 
 /*
@@ -69,8 +69,8 @@ enum keyboard_keycodes {
 #define VSC_MEN LCTL(LSFT(KC_P))
 #define VSC_WHC MEH(KC_P)
 #define MEH_SPC MEH(KC_SPC)
-#define FF_PTAB LCTL(KC_PGDN)
-#define FF_NTAB LCTL(KC_PGUP)
+#define FF_PTAB LCTL(KC_PGUP)
+#define FF_NTAB LCTL(KC_PGDN)
 
 /*
  *  Songs
@@ -265,7 +265,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     // Remote RGB mode
-    case REMRGB:
+    case REM_RGB:
       if (record->event.pressed) {
         remote_rgb_toggle();
       }
@@ -340,10 +340,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [HYPER_LAYER] = LAYOUT_preonic_2x2u(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
-  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_VOLU, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_TOGG,
-  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD, KC_MPRV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOGG,
-  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_LABK, KC_RABK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_MPLY, XXXXXXX, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
+  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_VOLU, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD, KC_MPRV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_LABK, KC_RABK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, _______, _______,     _______,          _______,      _______, _______, HYPER,   _______
 )
 
