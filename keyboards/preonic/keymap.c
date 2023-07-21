@@ -164,10 +164,12 @@ bool leader_mode = false;
 
 // The dictionary of sequences
 bool process_leader_sequence(void) {
-  // leader + T ==> Ctrl+Shift+t
+  // leader + t ==> Ctrl+Shift+t
   ONE_KEY_SEQUENCE(KC_T, SS_LCTL(SS_LSFT(SS_TAP(X_T))));
-  // leader + Q ==> Alt+F4
+  // leader + q ==> Alt+F4
   ONE_KEY_SEQUENCE(KC_Q, SS_LALT(SS_TAP(X_F4)));
+  // leader + s + s ==> Sleep
+  TWO_KEYS_SEQUENCE(KC_S, KC_S, SS_TAP(X_PWR));
   // Lowercase acutes
   // E.g. leader + a ==> Right Alt+'+a ==> á
   ONE_KEY_SEQUENCE(KC_A, COMPOSE_KEY LOWER_ACUTE(X_A));
