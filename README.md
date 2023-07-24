@@ -1,6 +1,6 @@
 # QMK Playground
 
-[![Build QMK firmware](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml/badge.svg)](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml)
+[![Build QMK firmware](https://github.com/agustinmista/qmk-playground/actions/workflows/build.yml/badge.svg)](https://github.com/agustinmista/qmk_playground/actions/workflows/build.yml)
 
 This project aims to provide a simple out-of-tree solution to build custom QMK keyboard firmware without having to install any tooling (other than Visual Studio Code and Docker). The build process is designed to run inside the official `qmk_cli` Docker image, and there's a devcontainer definition ready to use in Visual Studio Code. Finally, a GitHub action discovers, builds, and publishes all the firmwares on push.
 
