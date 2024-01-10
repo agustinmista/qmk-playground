@@ -36,10 +36,11 @@ enum keyboard_layers {
  * Layers colors
  */
 
-#define BASE_RGB  RGB_TEAL
-#define LOWER_RGB RGB_BLUE
-#define RAISE_RGB RGB_GREEN
-#define HYPER_RGB RGB_RED
+#define BASE_RGB   RGB_GREEN
+#define LOWER_RGB  RGB_BLUE
+#define RAISE_RGB  RGB_RED
+#define HYPER_RGB  RGB_PURPLE
+#define LEADER_RGB RGB_RED
 
 /*
  * Custom keycodes
@@ -64,12 +65,13 @@ enum keyboard_keycodes {
 #define LT_HYPER(kc) LT(HYPER_LAYER,kc)
 
 // Aliases for other combos
-#define TASK_VW LCA(KC_TAB)
+#define TASK_VW LCTL(LALT(KC_TAB))
 #define VSC_MEN LCTL(LSFT(KC_P))
 #define VSC_WHC MEH(KC_P)
 #define MEH_SPC MEH(KC_SPC)
 #define FF_PTAB LCTL(KC_PGUP)
 #define FF_NTAB LCTL(KC_PGDN)
+#define WIN_RUN LALT(KC_SPC)
 
 /*
  *  Songs
@@ -244,7 +246,7 @@ bool process_leader_sequence(void) {
 // Start leader mode hook
 void leader_start_user(void) {
   if (!remote_rgb_mode) {
-    rgb_matrix_set_color_all(RGB_WHITE);
+    rgb_matrix_set_color_all(LEADER_RGB);
   }
   PLAY_SONG(leader_on_song);
   leader_mode = true;
@@ -375,7 +377,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LCBR,          QK_LEAD,           QK_LEAD,          KC_RCBR, XXXXXXX, XXXXXXX, KC_RCTL, KC_RCTL,
-                             LT_LOWER(KC_SPC), KC_LALT, KC_LGUI,           VSC_MEN, VSC_WHC, LT_RAISE(KC_ENT)
+                             LT_LOWER(KC_SPC), KC_LALT, WIN_RUN,           VSC_MEN, VSC_WHC, LT_RAISE(KC_ENT)
 ),
 
 [LOWER_LAYER] = LAYOUT_moonlander(
