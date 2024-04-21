@@ -36,7 +36,7 @@ enum keyboard_layers {
  * Layers colors
  */
 
-#define BASE_RGB   RGB_GREEN
+#define BASE_RGB   255, 101, 0
 #define LOWER_RGB  RGB_BLUE
 #define RAISE_RGB  RGB_RED
 #define HYPER_RGB  RGB_PURPLE
