@@ -64,14 +64,36 @@ enum keyboard_keycodes {
 #define LT_RAISE(kc) LT(RAISE_LAYER,kc)
 #define LT_HYPER(kc) LT(HYPER_LAYER,kc)
 
+// Aliases for home row modifiers
+#define HR_A    LGUI_T(KC_A)
+#define HR_S    LALT_T(KC_S)
+#define HR_D    LSFT_T(KC_D)
+#define HR_F    LCTL_T(KC_F)
+
+#define HR_J    LCTL_T(KC_J)
+#define HR_K    LSFT_T(KC_K)
+#define HR_L    LALT_T(KC_L)
+#define HR_SCLN LGUI_T(KC_SCLN)
+
 // Aliases for other combos
-#define TASK_VW LCTL(LALT(KC_TAB))
-#define VSC_MEN LCTL(LSFT(KC_P))
-#define VSC_WHC MEH(KC_P)
-#define MEH_SPC MEH(KC_SPC)
-#define FF_PTAB LCTL(KC_PGUP)
-#define FF_NTAB LCTL(KC_PGDN)
-#define WIN_RUN LALT(KC_SPC)
+#define CTL_PUP LCTL(KC_PGUP)
+#define CTL_PDN LCTL(KC_PGDN)
+
+// Aliases for MEH
+#define MEH_TAB MEH(KC_TAB)
+
+#define MEH_F1  MEH(KC_F1)
+#define MEH_F2  MEH(KC_F2)
+#define MEH_F3  MEH(KC_F3)
+#define MEH_F4  MEH(KC_F4)
+#define MEH_F5  MEH(KC_F5)
+#define MEH_F6  MEH(KC_F6)
+#define MEH_F7  MEH(KC_F7)
+#define MEH_F8  MEH(KC_F8)
+#define MEH_F9  MEH(KC_F9)
+#define MEH_F10 MEH(KC_F10)
+#define MEH_F11 MEH(KC_F11)
+#define MEH_F12 MEH(KC_F12)
 
 /*
  *  Songs
@@ -209,12 +231,6 @@ bool leader_mode = false;
 
 // The dictionary of sequences
 bool process_leader_sequence(void) {
-  // leader + t ==> Ctrl+Shift+t
-  ONE_KEY_SEQUENCE(KC_T, SS_LCTL(SS_LSFT(SS_TAP(X_T))));
-  // leader + q ==> Alt+F4
-  ONE_KEY_SEQUENCE(KC_Q, SS_LALT(SS_TAP(X_F4)));
-  // leader + s + s ==> Sleep
-  TWO_KEYS_SEQUENCE(KC_S, KC_S, SS_TAP(X_PWR));
   // Lowercase acutes
   // E.g. leader + a ==> Right Alt+'+a ==> á
   ONE_KEY_SEQUENCE(KC_A, COMPOSE_KEY LOWER_ACUTE(X_A));
@@ -366,48 +382,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 
 /*
- * Keymaps
- */
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-[BASE_LAYER] = LAYOUT_moonlander(
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,           KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LCBR,          QK_LEAD,           QK_LEAD,          KC_RCBR, XXXXXXX, XXXXXXX, KC_RCTL, KC_RCTL,
-                             LT_LOWER(KC_SPC), KC_LALT, WIN_RUN,           VSC_MEN, VSC_WHC, LT_RAISE(KC_ENT)
-),
-
-[LOWER_LAYER] = LAYOUT_moonlander(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,           _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-  MEH_SPC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, _______,           _______, XXXXXXX, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_PIPE,
-  TASK_VW, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, _______,           _______, XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
-  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                             XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          LOWER,             LOWER,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
-                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_BSPC)
-),
-
-[RAISE_LAYER] = LAYOUT_moonlander(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,           _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  MEH_SPC, XXXXXXX, KC_BTN2, KC_MS_U, KC_BTN1, XXXXXXX, _______,           _______, XXXXXXX, FF_PTAB, KC_UP,   FF_NTAB, XXXXXXX, XXXXXXX,
-  TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,           _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
-                             LT_HYPER(KC_DEL), _______, _______,           _______, _______, _______
-),
-
-[HYPER_LAYER] = LAYOUT_moonlander(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
-  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LABK,          HYPER,             HYPER,            KC_RABK, XXXXXXX, XXXXXXX, _______, _______,
-                                      _______, _______, _______,           _______, _______, _______
-)};
-
-/*
  *  Music mode keymap
  */
 
@@ -428,3 +402,45 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
   {  0,   0,   0,   0,   0,   0,   0  },
   {  0,   0,   0,   0,   0,   0,   0  }
 };
+
+/*
+ * Keymaps
+ */
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+[BASE_LAYER] = LAYOUT_moonlander(
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,           KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  KC_ESC,  HR_A,    HR_S,    HR_D,    HR_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    HR_J,    HR_K,    HR_L,    HR_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,  KC_LCBR,          QK_LEAD,           QK_LEAD,          KC_RCBR, MEH_F9,  MEH_F10, MEH_F11, MEH_F12,
+                             LT_LOWER(KC_SPC), MEH_F1,  MEH_F2,            MEH_F3,  MEH_F4,  LT_RAISE(KC_ENT)
+  ),
+
+[LOWER_LAYER] = LAYOUT_moonlander(
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,           _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
+  MEH_TAB, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______,           _______, _______, KC_UNDS, KC_PLUS, _______, _______, KC_PIPE,
+  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______,           _______, _______, KC_MINS, KC_EQL,  _______, KC_COLN, KC_DQUO,
+  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,                             _______, _______, KC_LABK, KC_RABK, KC_QUES, _______,
+  _______, _______, _______, _______, KC_LBRC,          LOWER,             LOWER,            KC_RBRC, _______, _______, _______, _______,
+                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_BSPC)
+),
+
+[RAISE_LAYER] = LAYOUT_moonlander(
+  _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
+  MEH_TAB, _______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______,           _______, _______, CTL_PUP, KC_UP,   CTL_PDN, _______, _______,
+  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,           _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, _______, _______, _______, _______,
+                             LT_HYPER(KC_DEL), _______, _______,           _______, _______, _______
+),
+
+[HYPER_LAYER] = LAYOUT_moonlander(
+  _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
+  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  _______, _______,           _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______, _______,           _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______,                             _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, KC_LABK,          HYPER,             HYPER,            KC_RABK, _______, _______, _______, _______,
+                                      _______, _______, _______,           _______, _______, _______
+)};
