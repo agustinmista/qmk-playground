@@ -27,3 +27,9 @@
 
 #define LEADER_TIMEOUT 500
 #define LEADER_PER_KEY_TIMING
+
+/*
+ * Debouncing delay
+ */
+
+#define DEBOUNCING_DELAY 10

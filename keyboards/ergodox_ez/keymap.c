@@ -52,14 +52,36 @@ enum keyboard_keycodes {
 #define LT_RAISE(kc) LT(RAISE_LAYER,kc)
 #define LT_HYPER(kc) LT(HYPER_LAYER,kc)
 
+// Aliases for home row modifiers
+#define HR_A    LGUI_T(KC_A)
+#define HR_S    LALT_T(KC_S)
+#define HR_D    LSFT_T(KC_D)
+#define HR_F    LCTL_T(KC_F)
+
+#define HR_J    LCTL_T(KC_J)
+#define HR_K    LSFT_T(KC_K)
+#define HR_L    LALT_T(KC_L)
+#define HR_SCLN LGUI_T(KC_SCLN)
+
 // Aliases for other combos
-#define TASK_VW LCTL(LALT(KC_TAB))
-#define VSC_MEN LCTL(LSFT(KC_P))
-#define VSC_WHC MEH(KC_P)
-#define MEH_SPC MEH(KC_SPC)
-#define FF_PTAB LCTL(KC_PGUP)
-#define FF_NTAB LCTL(KC_PGDN)
-#define WIN_RUN LALT(KC_SPC)
+#define CTL_PUP LCTL(KC_PGUP)
+#define CTL_PDN LCTL(KC_PGDN)
+
+// Aliases for MEH
+#define MEH_TAB MEH(KC_TAB)
+
+#define MEH_F1  MEH(KC_F1)
+#define MEH_F2  MEH(KC_F2)
+#define MEH_F3  MEH(KC_F3)
+#define MEH_F4  MEH(KC_F4)
+#define MEH_F5  MEH(KC_F5)
+#define MEH_F6  MEH(KC_F6)
+#define MEH_F7  MEH(KC_F7)
+#define MEH_F8  MEH(KC_F8)
+#define MEH_F9  MEH(KC_F9)
+#define MEH_F10 MEH(KC_F10)
+#define MEH_F11 MEH(KC_F11)
+#define MEH_F12 MEH(KC_F12)
 
 /*
  * Initialization code
@@ -286,86 +308,86 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Left hand
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+  KC_ESC,  HR_A,    HR_S,    HR_D,    HR_F,    KC_G,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_VOLD,
-  KC_LCTL, KC_LCTL, XXXXXXX, XXXXXXX, KC_LCBR,
-                                               XXXXXXX, XXXXXXX,
+  MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,  KC_LCBR,
+                                               _______, _______,
                                                         QK_LEAD,
-                             LT_LOWER(KC_SPC), KC_LALT, WIN_RUN,
+                             LT_LOWER(KC_SPC), MEH_F1,  MEH_F2,
 
   // Right hand
   KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+           KC_H,    HR_J,    HR_K,    HR_L,    HR_SCLN, KC_QUOT,
   KC_MPRV, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                    KC_RCBR, XXXXXXX, XXXXXXX, KC_RCTL, KC_RCTL,
-  XXXXXXX, XXXXXXX,
+                    KC_RCBR, MEH_F9,  MEH_F10, MEH_F11, MEH_F12,
+  _______, _______,
   QK_LEAD,
-  VSC_MEN, VSC_WHC, LT_RAISE(KC_ENT)
+  MEH_F3,  MEH_F4,  LT_RAISE(KC_ENT)
 ),
 
 [LOWER_LAYER] = LAYOUT_ergodox(
   // Left hand
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,
-  MEH_SPC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, _______,
-  TASK_VW, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX,
-  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,
-                                               XXXXXXX, XXXXXXX,
+  MEH_TAB, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______,
+  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
+  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
+  _______, _______, _______, _______, KC_LBRC,
+                                               _______, _______,
                                                         LOWER,
                                       _______, _______, _______,
 
   // Right hand
   _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-  _______, XXXXXXX, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_PIPE,
-           XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
-  _______, XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
-                    KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
-  XXXXXXX, XXXXXXX,
+  _______, _______, KC_UNDS, KC_PLUS, _______, _______, KC_PIPE,
+           _______, KC_MINS, KC_EQL,  _______, KC_COLN, KC_DQUO,
+  _______, _______, _______, KC_LABK, KC_RABK, KC_QUES, _______,
+                    KC_RBRC, _______, _______, _______, _______,
+  _______, _______,
   LOWER,
   _______, _______, LT_HYPER(KC_BSPC)
 ),
 
 [RAISE_LAYER] = LAYOUT_ergodox(
   // Left hand
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  MEH_SPC, XXXXXXX, KC_BTN2, KC_MS_U, KC_BTN1, XXXXXXX, _______,
-  TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LBRC,
-                                               XXXXXXX, XXXXXXX,
+  _______, _______, _______, _______, _______, _______, _______,
+  MEH_TAB, _______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______,
+  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, KC_LBRC,
+                                               _______, _______,
                                                         RAISE,
                              LT_HYPER(KC_DEL), _______, _______,
 
   // Right hand
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, FF_PTAB, KC_UP,   FF_NTAB, XXXXXXX, XXXXXXX,
-           XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                    KC_RBRC, XXXXXXX, XXXXXXX, _______, _______,
-  XXXXXXX, XXXXXXX,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, CTL_PDN, KC_UP,   CTL_PUP, _______, _______,
+           _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+                    KC_RBRC, _______, _______, _______, _______,
+  _______, _______,
   RAISE,
   _______, _______, _______
 ),
 
 [HYPER_LAYER] = LAYOUT_ergodox(
   // Left hand
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX,
-  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX,
-  _______, _______, XXXXXXX, XXXXXXX, KC_LABK,
-                                               XXXXXXX, XXXXXXX,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  _______, _______,
+  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
+  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______, _______,
+  _______, _______, _______, _______, KC_LABK,
+                                               _______, _______,
                                                         HYPER,
                                       _______, _______, _______,
 
   // Right hand
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                    KC_RABK, XXXXXXX, XXXXXXX, _______, _______,
-  XXXXXXX, XXXXXXX,
+  _______, _______, _______, _______, _______, _______, QK_BOOT,
+  _______, _______, _______, _______, _______, _______, _______,
+           _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+                    KC_RABK, _______, _______, _______, _______,
+  _______, _______,
   HYPER,
   _______, _______, _______
 )};
