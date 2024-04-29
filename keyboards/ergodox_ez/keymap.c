@@ -66,6 +66,10 @@ enum keyboard_keycodes {
 // Aliases for other combos
 #define CTL_PUP LCTL(KC_PGUP)
 #define CTL_PDN LCTL(KC_PGDN)
+#define CTL_UP  LCTL(KC_UP)
+#define CTL_DWN LCTL(KC_DOWN)
+#define CTL_LFT LCTL(KC_LEFT)
+#define CTL_RGT LCTL(KC_RGHT)
 #define GUI_TAB LGUI(KC_TAB)
 
 // Aliases for MEH
@@ -310,7 +314,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  HR_A,    HR_S,    HR_D,    HR_F,    KC_G,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_VOLD,
   MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,  KC_LCBR,
-                                               _______, _______,
+                                               KC_UP,   KC_DOWN,
                                                         QK_LEAD,
                              LT_LOWER(KC_SPC), MEH_F1,  MEH_F2,
 
@@ -320,7 +324,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_H,    HR_J,    HR_K,    HR_L,    HR_SCLN, KC_QUOT,
   KC_MPRV, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                     KC_RCBR, MEH_F9,  MEH_F10, MEH_F11, MEH_F12,
-  _______, _______,
+  KC_LEFT, KC_RGHT,
   QK_LEAD,
   MEH_F3,  MEH_F4,  LT_RAISE(KC_ENT)
 ),
