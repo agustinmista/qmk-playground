@@ -64,13 +64,35 @@ enum keyboard_keycodes {
 #define LT_RAISE(kc) LT(RAISE_LAYER,kc)
 #define LT_HYPER(kc) LT(HYPER_LAYER,kc)
 
+// Aliases for home row modifiers
+#define HR_A    LGUI_T(KC_A)
+#define HR_S    LALT_T(KC_S)
+#define HR_D    LSFT_T(KC_D)
+#define HR_F    LCTL_T(KC_F)
+
+#define HR_J    LCTL_T(KC_J)
+#define HR_K    LSFT_T(KC_K)
+#define HR_L    LALT_T(KC_L)
+#define HR_SCLN LGUI_T(KC_SCLN)
+
 // Aliases for other combos
-#define TASK_VW LCA(KC_TAB)
-#define VSC_MEN LCTL(LSFT(KC_P))
-#define VSC_WHC MEH(KC_P)
-#define MEH_SPC MEH(KC_SPC)
-#define FF_PTAB LCTL(KC_PGUP)
-#define FF_NTAB LCTL(KC_PGDN)
+#define CTL_PUP LCTL(KC_PGUP)
+#define CTL_PDN LCTL(KC_PGDN)
+#define GUI_TAB LGUI(KC_TAB)
+
+// Aliases for MEH
+#define MEH_F1  MEH(KC_F1)
+#define MEH_F2  MEH(KC_F2)
+#define MEH_F3  MEH(KC_F3)
+#define MEH_F4  MEH(KC_F4)
+#define MEH_F5  MEH(KC_F5)
+#define MEH_F6  MEH(KC_F6)
+#define MEH_F7  MEH(KC_F7)
+#define MEH_F8  MEH(KC_F8)
+#define MEH_F9  MEH(KC_F9)
+#define MEH_F10 MEH(KC_F10)
+#define MEH_F11 MEH(KC_F11)
+#define MEH_F12 MEH(KC_F12)
 
 /*
  *  Songs
@@ -320,33 +342,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE_LAYER] = LAYOUT_preonic_2x2u(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LCTL, KC_LGUI, KC_LALT, LT_LOWER(KC_SPC), LT_RAISE(KC_ENT), VSC_WHC, VSC_MEN, QK_LEAD, KC_RCTL
+  KC_ESC,  HR_A,    HR_S,    HR_D,    HR_F,    KC_G,    KC_H,    HR_J,    HR_K,    HR_L,    HR_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QK_LEAD,
+  MEH_F1,  MEH_F2,  MEH_F3,  KC_LCBR, LT_LOWER(KC_SPC), LT_RAISE(KC_ENT), KC_RCBR, MEH_F4,  MEH_F5,  MEH_F6
 ),
 
 [LOWER_LAYER] = LAYOUT_preonic_2x2u(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-  MEH_SPC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_PIPE,
-  TASK_VW, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_MINS, KC_EQL,  XXXXXXX, KC_COLN, KC_DQUO,
-  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_LCBR, KC_RCBR, XXXXXXX, KC_LABK, KC_RABK, KC_QUES, _______,
-  _______, _______, _______, _______,     _______,      LT_HYPER(KC_BSPC),_______, _______, LOWER,   _______
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, KC_UNDS, KC_PLUS, _______, _______, KC_PIPE,
+  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_MINS, KC_EQL,  _______, KC_COLN, KC_DQUO,
+  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, KC_LABK, KC_RABK, KC_QUES, LOWER,
+  _______, _______, _______, KC_LBRC,     _______,      LT_HYPER(KC_BSPC),KC_RBRC, _______, _______, _______
 ),
 
 [RAISE_LAYER] = LAYOUT_preonic_2x2u(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  MEH_SPC, XXXXXXX, KC_BTN2, KC_MS_U, KC_BTN1, XXXXXXX, XXXXXXX, FF_PTAB, KC_UP,   FF_NTAB, XXXXXXX, XXXXXXX,
-  TASK_VW, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  _______, _______, _______, _______, LT_HYPER(KC_DEL),     _______,      _______, _______, RAISE,   _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______, CTL_PUP, KC_UP,   CTL_PDN, _______, _______,
+  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RAISE,
+  _______, _______, _______, KC_LBRC, LT_HYPER(KC_DEL),     _______,      KC_RBRC, _______, _______, _______
 ),
 
 [HYPER_LAYER] = LAYOUT_preonic_2x2u(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_MPLY, XXXXXXX, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
-  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_VOLU, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD, KC_MPRV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_LABK, KC_RABK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  _______, _______, _______, _______,     _______,          _______,      _______, _______, HYPER,   _______
+  _______, _______, _______, _______, _______, KC_MUTE, KC_MPLY, _______, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
+  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_VOLU, KC_MNXT, _______, _______, _______, _______, _______,
+  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD, KC_MPRV, _______, _______, _______, _______, _______,
+  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______, _______, _______, _______, _______, _______, HYPER,
+  _______, _______, _______, KC_LABK,     _______,          _______,      KC_RABK, _______, HYPER,   _______
 )
 
 };
