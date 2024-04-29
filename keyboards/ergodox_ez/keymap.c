@@ -66,10 +66,6 @@ enum keyboard_keycodes {
 // Aliases for other combos
 #define CTL_PUP LCTL(KC_PGUP)
 #define CTL_PDN LCTL(KC_PGDN)
-#define CTL_UP  LCTL(KC_UP)
-#define CTL_DWN LCTL(KC_DOWN)
-#define CTL_LFT LCTL(KC_LEFT)
-#define CTL_RGT LCTL(KC_RGHT)
 #define GUI_TAB LGUI(KC_TAB)
 
 // Aliases for MEH
@@ -354,7 +350,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [RAISE_LAYER] = LAYOUT_ergodox(
   // Left hand
   _______, _______, _______, _______, _______, _______, _______,
-  GUI_TAB, _______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______,
+  _______, _______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______,
   _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
   _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, KC_LBRC,
