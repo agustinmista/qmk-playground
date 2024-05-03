@@ -33,3 +33,9 @@
  */
 
 #define DEBOUNCING_DELAY 10
+
+/*
+ * Hold-tap timeout
+ */
+
+#define TAPPING_TERM 250
