@@ -22,3 +22,9 @@
 
 #define LEADER_TIMEOUT 500
 #define LEADER_PER_KEY_TIMING
+
+/*
+ * Hold-tap timeout
+ */
+
+#define TAPPING_TERM 250

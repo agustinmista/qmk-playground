@@ -66,13 +66,13 @@ enum keyboard_keycodes {
 
 // Aliases for home row modifiers
 #define HR_A    LGUI_T(KC_A)
-#define HR_S    LALT_T(KC_S)
-#define HR_D    LSFT_T(KC_D)
+#define HR_S    LSFT_T(KC_S)
+#define HR_D    LALT_T(KC_D)
 #define HR_F    LCTL_T(KC_F)
 
 #define HR_J    LCTL_T(KC_J)
-#define HR_K    LSFT_T(KC_K)
-#define HR_L    LALT_T(KC_L)
+#define HR_K    LALT_T(KC_K)
+#define HR_L    LSFT_T(KC_L)
 #define HR_SCLN LGUI_T(KC_SCLN)
 
 // Aliases for other combos

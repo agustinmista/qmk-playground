@@ -28,6 +28,12 @@
 #define LEADER_PER_KEY_TIMING
 
 /*
+ * Hold-tap timeout
+ */
+
+#define TAPPING_TERM 250
+
+/*
  * Disabling some RGB effects
  */
 
