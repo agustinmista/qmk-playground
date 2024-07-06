@@ -29,18 +29,20 @@ enum keyboard_layers {
   BASE_LAYER,
   LOWER_LAYER,
   RAISE_LAYER,
-  HYPER_LAYER
+  HYPER_LAYER,
+  GAME_LAYER
 };
 
 /*
  * Layers colors
  */
 
-#define BASE_RGB   255, 101, 0
+#define BASE_RGB   RGB_ORANGE
 #define LOWER_RGB  RGB_BLUE
 #define RAISE_RGB  RGB_RED
 #define HYPER_RGB  RGB_PURPLE
-#define LEADER_RGB RGB_RED
+#define GAME_RGB   RGB_GREEN
+#define LEADER_RGB RGB_CYAN
 
 /*
  * Custom keycodes
@@ -51,6 +53,7 @@ enum keyboard_keycodes {
   LOWER,                // Set the default layer to LOWER_LAYER
   RAISE,                // Set the default layer to RAISE_LAYER
   HYPER,                // Set the default layer to HYPER_LAYER
+  GAME,                 // Set the default later to GAME_LAYER
   REM_RGB               // Toggle remote RGB mode
 };
 
@@ -136,6 +139,9 @@ void rgb_matrix_set_color_by_layer(uint8_t index, uint8_t layer) {
       break;
     case HYPER_LAYER:
       rgb_matrix_set_color(index, HYPER_RGB);
+      break;
+    case GAME_LAYER:
+      rgb_matrix_set_color(index, GAME_RGB);
       break;
   }
 }
@@ -325,6 +331,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_or_revert_default_layer(HYPER_LAYER);
       }
       return false;
+    case GAME:
+      if (record->event.pressed) {
+        set_or_revert_default_layer(GAME_LAYER);
+      }
+      return false;
     // Remote RGB mode
     case REM_RGB:
       if (record->event.pressed) {
@@ -437,10 +448,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [HYPER_LAYER] = LAYOUT_moonlander(
-  _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
+  _______, _______, _______, _______, _______, _______, _______,           GAME,    _______, _______, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
   _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  _______, _______,           _______, _______, _______, _______, _______, _______, _______,
   _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______, _______,           _______, _______, _______, _______, _______, _______, _______,
   _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______,                             _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, KC_LABK,          HYPER,             HYPER,            KC_RABK, _______, _______, _______, _______,
                                       _______, _______, _______,           _______, _______, _______
+),
+
+[GAME_LAYER] = LAYOUT_moonlander(
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,           KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR,          QK_LEAD,           QK_LEAD,          KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL,
+                             LT_LOWER(KC_SPC), KC_LALT, GAME,              GAME,    KC_LGUI, LT_RAISE(KC_ENT)
 )};
