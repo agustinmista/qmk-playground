@@ -53,15 +53,15 @@ enum keyboard_keycodes {
 #define LT_HYPER(kc) LT(HYPER_LAYER,kc)
 
 // Aliases for home row modifiers
-#define HR_A    LGUI_T(KC_A)
+#define HR_A    LCTL_T(KC_A)
 #define HR_S    LSFT_T(KC_S)
 #define HR_D    LALT_T(KC_D)
-#define HR_F    LCTL_T(KC_F)
+#define HR_F    LGUI_T(KC_F)
 
-#define HR_J    LCTL_T(KC_J)
+#define HR_J    LGUI_T(KC_J)
 #define HR_K    LALT_T(KC_K)
 #define HR_L    LSFT_T(KC_L)
-#define HR_SCLN LGUI_T(KC_SCLN)
+#define HR_SCLN LCTL_T(KC_SCLN)
 
 // Aliases for other combos
 #define CTL_PUP LCTL(KC_PGUP)
