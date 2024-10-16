@@ -1,2 +1,4 @@
 # Keyboard firmwares
 build
+# Direnv stuff
+.direnv
