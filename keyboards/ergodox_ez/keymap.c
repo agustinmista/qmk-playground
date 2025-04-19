@@ -312,7 +312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,  KC_LCBR,
                                                KC_UP,   KC_DOWN,
                                                         QK_LEAD,
-                             LT_LOWER(KC_SPC), MEH_F1,  MEH_F2,
+                             LT_LOWER(KC_SPC), KC_TAB,  KC_ESC,
 
   // Right hand
   KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
@@ -322,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_RCBR, MEH_F9,  MEH_F10, MEH_F11, MEH_F12,
   KC_LEFT, KC_RGHT,
   QK_LEAD,
-  MEH_F3,  MEH_F4,  LT_RAISE(KC_ENT)
+  KC_LGUI, KC_BSPC, LT_RAISE(KC_ENT)
 ),
 
 [LOWER_LAYER] = LAYOUT_ergodox(
@@ -344,7 +344,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_RBRC, _______, _______, _______, _______,
   _______, _______,
   LOWER,
-  _______, _______, LT_HYPER(KC_BSPC)
+  _______, _______, LT_HYPER(KC_ENT)
 ),
 
 [RAISE_LAYER] = LAYOUT_ergodox(
@@ -356,7 +356,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, KC_LBRC,
                                                _______, _______,
                                                         RAISE,
-                             LT_HYPER(KC_DEL), _______, _______,
+                             LT_HYPER(KC_SPC), _______, _______,
 
   // Right hand
   _______, _______, _______, _______, _______, _______, _______,

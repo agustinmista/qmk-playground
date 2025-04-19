@@ -425,8 +425,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   KC_ESC,  HR_A,    HR_S,    HR_D,    HR_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    HR_J,    HR_K,    HR_L,    HR_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,  KC_LCBR,          QK_LEAD,           QK_LEAD,          KC_RCBR, MEH_F9,  MEH_F10, MEH_F11, MEH_F12,
-                             LT_LOWER(KC_SPC), MEH_F1,  MEH_F2,            MEH_F3,  MEH_F4,  LT_RAISE(KC_ENT)
+  MEH_F1,  MEH_F2,  MEH_F3,  MEH_F4,  KC_LCBR,          QK_LEAD,           QK_LEAD,          KC_RCBR, MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,
+                             LT_LOWER(KC_SPC), KC_TAB,  KC_ESC,            KC_LGUI, KC_BSPC, LT_RAISE(KC_ENT)
   ),
 
 [LOWER_LAYER] = LAYOUT_moonlander(
@@ -435,7 +435,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______,           _______, _______, KC_MINS, KC_EQL,  _______, KC_COLN, KC_DQUO,
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,                             _______, _______, KC_LABK, KC_RABK, KC_QUES, _______,
   _______, _______, _______, _______, KC_LBRC,          LOWER,             LOWER,            KC_RBRC, _______, _______, _______, _______,
-                                      _______, _______, _______,           _______, _______, LT_HYPER(KC_BSPC)
+                                      _______, _______, _______,           _______, KC_DEL,  LT_HYPER(KC_ENT)
 ),
 
 [RAISE_LAYER] = LAYOUT_moonlander(
@@ -444,14 +444,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,           _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
   _______, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, KC_LBRC,          RAISE,             RAISE,            KC_RBRC, _______, _______, _______, _______,
-                             LT_HYPER(KC_DEL), _______, _______,           _______, _______, _______
+                             LT_HYPER(KC_SPC), _______, _______,           _______, _______, _______
 ),
 
 [HYPER_LAYER] = LAYOUT_moonlander(
   _______, _______, _______, _______, _______, _______, _______,           GAME,    _______, KC_7,    KC_8,    KC_9,    _______, QK_BOOT,
   _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  _______, _______,           _______, _______, KC_4,    KC_5,    KC_6,    _______, REM_RGB,
   _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______, _______,           _______, _______, KC_1,    KC_2,    KC_3,    _______, MU_TOGG,
-  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______,                             _______, KC_0,    KC_COMM, KC_DOT, _______, AU_TOGG,
+  _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______,                             _______, KC_0,    KC_COMM, KC_DOT,  _______, AU_TOGG,
   _______, _______, _______, _______, KC_LABK,          HYPER,             HYPER,            KC_RABK, _______, _______, _______, _______,
                                       _______, _______, _______,           _______, _______, _______
 ),
@@ -461,6 +461,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,           KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_VOLD,           KC_MPRV, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR,          QK_LEAD,           QK_LEAD,          KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL,
-                             LT_LOWER(KC_SPC), KC_LALT, GAME,              GAME,    KC_LGUI, LT_RAISE(KC_ENT)
+  KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR,          GAME,              GAME,             KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL,
+                             LT_LOWER(KC_SPC), KC_TAB,  KC_ESC,            KC_LGUI, KC_BSPC, LT_RAISE(KC_ENT)
 )};
