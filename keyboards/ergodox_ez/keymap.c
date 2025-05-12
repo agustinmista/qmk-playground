@@ -344,7 +344,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_RBRC, _______, _______, _______, _______,
   _______, _______,
   LOWER,
-  _______, _______, LT_HYPER(KC_ENT)
+  _______, KC_DEL,  LT_HYPER(KC_ENT)
 ),
 
 [RAISE_LAYER] = LAYOUT_ergodox(
