@@ -1,4 +1,7 @@
 # Keyboard firmwares
 build
 # Direnv stuff
-.direnv
+.direnv/
+# Nix stuff
+result
+result-*

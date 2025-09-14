@@ -223,11 +223,6 @@ void leader_end_user(void) {
 
 uint16_t sticky_layer = BASE_LAYER;
 
-// Like set_single_persistent_default_layer but without writing to EEPROM
-void set_single_default_layer(uint16_t layer) {
-  default_layer_set((layer_state_t)1 << layer);
-}
-
 // Set a given layer or revert to the base one if the given layer is already set
 void set_or_revert_default_layer(uint16_t layer) {
   if (sticky_layer == layer) { // The layer is already set, move to the base layer
@@ -305,24 +300,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE_LAYER] = LAYOUT_ergodox(
   // Left hand
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MUTE,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_VOLU,
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______,
   KC_ESC,  HR_A,    HR_S,    HR_D,    HR_F,    KC_G,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_VOLD,
-  MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,  KC_LCBR,
-                                               KC_UP,   KC_DOWN,
-                                                        QK_LEAD,
-                             LT_LOWER(KC_SPC), KC_TAB,  KC_ESC,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______,
+  MEH_F1,  MEH_F2,  MEH_F3,  MEH_F4,  KC_LCBR,
+                                               KC_VOLD, KC_VOLU,
+                                                        KC_MUTE,
+                             LT_LOWER(KC_SPC), KC_LGUI, QK_LEAD,
 
   // Right hand
-  KC_MPLY, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_MNXT, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
            KC_H,    HR_J,    HR_K,    HR_L,    HR_SCLN, KC_QUOT,
-  KC_MPRV, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                    KC_RCBR, MEH_F9,  MEH_F10, MEH_F11, MEH_F12,
-  KC_LEFT, KC_RGHT,
-  QK_LEAD,
-  KC_LGUI, KC_BSPC, LT_RAISE(KC_ENT)
+  _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                    KC_RCBR, MEH_F5,  MEH_F6,  MEH_F7,  MEH_F8,
+  KC_MPRV, KC_MNXT,
+  KC_MPLY,
+  QK_LEAD, KC_BSPC, LT_RAISE(KC_ENT)
 ),
 
 [LOWER_LAYER] = LAYOUT_ergodox(
@@ -333,8 +328,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
   _______, _______, _______, _______, KC_LBRC,
                                                _______, _______,
-                                                        LOWER,
-                                      _______, _______, _______,
+                                                        _______,
+                                      _______, _______, LOWER,
 
   // Right hand
   _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
@@ -343,20 +338,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, KC_LABK, KC_RABK, KC_QUES, _______,
                     KC_RBRC, _______, _______, _______, _______,
   _______, _______,
-  LOWER,
-  _______, KC_DEL,  LT_HYPER(KC_ENT)
+  _______,
+  LOWER,   KC_DEL,  LT_HYPER(KC_ENT)
 ),
 
 [RAISE_LAYER] = LAYOUT_ergodox(
   // Left hand
   _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______,
-  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
+  _______, _______, MS_BTN2, MS_UP,   MS_BTN1, _______, _______,
+  _______, _______, MS_LEFT, MS_DOWN, MS_RGHT, _______,
   _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, KC_LBRC,
                                                _______, _______,
-                                                        RAISE,
-                             LT_HYPER(KC_SPC), _______, _______,
+                                                        _______,
+                             LT_HYPER(KC_SPC), _______, RAISE,
 
   // Right hand
   _______, _______, _______, _______, _______, _______, _______,
@@ -365,8 +360,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______,
                     KC_RBRC, _______, _______, _______, _______,
   _______, _______,
-  RAISE,
-  _______, _______, _______
+  _______,
+  RAISE,   _______, _______
 ),
 
 [HYPER_LAYER] = LAYOUT_ergodox(
@@ -377,8 +372,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______, _______,
   _______, _______, _______, _______, KC_LABK,
                                                _______, _______,
-                                                        HYPER,
-                                      _______, _______, _______,
+                                                        _______,
+                                      _______, _______, HYPER,
 
   // Right hand
   _______, _______, _______, _______, _______, _______, QK_BOOT,
@@ -387,6 +382,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______,
                     KC_RABK, _______, _______, _______, _______,
   _______, _______,
-  HYPER,
-  _______, _______, _______
+  _______,
+  HYPER,   _______, _______
 )};

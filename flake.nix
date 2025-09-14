@@ -1,20 +1,30 @@
 {
   description = "QMK Playground";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-  outputs = { nixpkgs, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      devShell.${system} = pkgs.mkShell {
-        name = "qmk-playground";
-        buildInputs = [
-          pkgs.clang-tools
-          pkgs.dfu-programmer
-          pkgs.dfu-util
-          pkgs.diffutils
-          pkgs.qmk
-        ];
-      };
-    };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs =
+    { nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        qmk-playground = pkgs.callPackage ./qmk-playground.nix { };
+        keyboards = import ./keyboards;
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          name = "qmk-playground";
+          buildInputs = [
+            pkgs.qmk
+          ];
+        };
+        packages = {
+          firmware = pkgs.lib.mapAttrs (_: kbd: qmk-playground.compile kbd) keyboards;
+        };
+      }
+    );
 }
