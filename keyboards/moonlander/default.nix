@@ -1,3 +1,3 @@
-{
+{...}:{
   keyboard = "zsa/moonlander";
 }

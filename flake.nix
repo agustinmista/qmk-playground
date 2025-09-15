@@ -20,16 +20,14 @@
         # Reify keyboard configurations from the keyboards directory
         keyboardsDir = ./keyboards;
         subdirPath = subdir: keyboardsDir + "/${subdir}";
-        toConfig = name: _: import (subdirPath name) // { keymap = subdirPath name; };
+        toConfig = name: _: (pkgs.callPackage (subdirPath name) { }) // { keymap = subdirPath name; };
         keyboardSubdirs = lib.filterAttrs (_: type: type == "directory") (builtins.readDir keyboardsDir);
         keyboardConfigs = builtins.mapAttrs toConfig keyboardSubdirs;
       in
       {
         devShells.default = pkgs.mkShell {
           name = "qmk-playground";
-          buildInputs = [
-            pkgs.qmk
-          ];
+          buildInputs = [ pkgs.qmk ];
         };
         packages = pkgs.lib.mapAttrs (_: kbd: qmk-playground.compile kbd) keyboardConfigs;
       }

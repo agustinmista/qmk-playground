@@ -2,6 +2,7 @@
   qmk,
   fetchFromGitHub,
   stdenv,
+  lib,
 }:
 rec {
   qmk_firmware = fetchFromGitHub {
@@ -15,17 +16,20 @@ rec {
     {
       keyboard,
       keymap,
-      variant ? "",
+      variant ? null,
+      flash ? null,
+      target ? "fw",
+      ...
     }:
     let
       buildDir = "build";
       keyboardDir = "keyboards/${keyboard}";
-      keyboardVariant = if variant == "" then "${keyboard}" else "${keyboard}/${variant}";
+      keyboardVariant = if builtins.isNull variant then "${keyboard}" else "${keyboard}/${variant}";
       keymapName = "qmk_playground";
       keymapDir = "${keyboardDir}/keymaps/${keymapName}";
     in
     stdenv.mkDerivation {
-      name = "qmk-playground";
+      name = "qmk-playground-compile";
       src = qmk_firmware;
       buildInputs = [ qmk ];
       postPatch = ''
@@ -36,12 +40,22 @@ rec {
         qmk compile \
           --env SKIP_GIT=true \
           --env BUILD_DIR=${buildDir} \
+          --env TARGET=${target} \
           --keyboard ${keyboardVariant} \
           --keymap ${keymapName}
       '';
       installPhase = ''
         mkdir -p $out/bin
         cp ${buildDir}/*.{hex,bin,elf,dfu,uf2,eep} $out/bin
+
+        ${lib.optionalString (!builtins.isNull flash) ''
+          cat > $out/bin/flash <<EOF
+          #!/bin/sh
+          set -e
+          ${flash (placeholder "out" + "/bin/${target}")}
+          EOF
+          chmod +x $out/bin/flash
+        ''}
       '';
       dontFixup = true;
     };
