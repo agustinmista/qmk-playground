@@ -1,12 +1,6 @@
 name: Build QMK firmware
-
 on: [push]
-
-env:
-  QMK_IMAGE: qmkfm/qmk_cli
-
 jobs:
-
   find-targets:
     runs-on: ubuntu-latest
     outputs:
@@ -15,7 +9,6 @@ jobs:
       - uses: actions/checkout@v2
       - id: set-targets
         run: echo "targets=$(ls keyboards | jq -R '[.]' | jq -s -c 'add')" >> $GITHUB_OUTPUT
-
   build:
     needs: find-targets
     runs-on: ubuntu-latest
@@ -25,20 +18,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Pull QMK cli Docker image
-        run: docker pull ${{ env.QMK_IMAGE }}
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
       - name: Build firmware
-        run: |
-          docker run \
-            --volume ${{ github.workspace }}:/workspaces \
-            --workdir /workspaces \
-            --entrypoint /bin/bash \
-            ${{ env.QMK_IMAGE }} \
-            -c "git config --global --add safe.directory '*' && make compile KBD=${{ matrix.KBD }}"
+        run: nix build --out-link result-${{ matrix.KBD }} .#${{ matrix.KBD }}
       - name: Create artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.KBD }}
-          path: |
-            build/*.bin
-            build/*.hex
+          path: result-${{ matrix.KBD }}/bin/*
