@@ -12,8 +12,17 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        lib = pkgs.lib;
+
+        # QMK out-of-tree builder derivation
         qmk-playground = pkgs.callPackage ./qmk-playground.nix { };
-        keyboards = import ./keyboards;
+
+        # Reify keyboard configurations from the keyboards directory
+        keyboardsDir = ./keyboards;
+        subdirPath = subdir: keyboardsDir + "/${subdir}";
+        toConfig = name: _: import (subdirPath name) // { keymap = subdirPath name; };
+        keyboardSubdirs = lib.filterAttrs (_: type: type == "directory") (builtins.readDir keyboardsDir);
+        keyboardConfigs = builtins.mapAttrs toConfig keyboardSubdirs;
       in
       {
         devShells.default = pkgs.mkShell {
@@ -22,9 +31,7 @@
             pkgs.qmk
           ];
         };
-        packages = {
-          firmware = pkgs.lib.mapAttrs (_: kbd: qmk-playground.compile kbd) keyboards;
-        };
+        packages = pkgs.lib.mapAttrs (_: kbd: qmk-playground.compile kbd) keyboardConfigs;
       }
     );
 }

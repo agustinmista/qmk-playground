@@ -9,7 +9,7 @@ rec {
     owner = "qmk";
     repo = "qmk_firmware";
     rev = "0.30.3";
-    sha256 = "sha256-9MwneluCRdotVZtxQuG2XUg5mHIGzFQsrCbY1IyeoqY=";
+    sha256 = "sha256-+BhxRbH+o++/4vm9NAJ7cE1EyTHGG2v5/+L/7xahFvI=";
     fetchSubmodules = true;
     leaveDotGit = true;
   };

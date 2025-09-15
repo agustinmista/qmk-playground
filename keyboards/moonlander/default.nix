@@ -1,0 +1,3 @@
+{
+  keyboard = "zsa/moonlander";
+}
