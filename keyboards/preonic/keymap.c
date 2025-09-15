@@ -245,11 +245,6 @@ void leader_end_user(void) {
 
 uint16_t sticky_layer = BASE_LAYER;
 
-// Like set_single_persistent_default_layer but without writing to EEPROM
-void set_single_default_layer(uint16_t layer) {
-  default_layer_set((layer_state_t)1 << layer);
-}
-
 // Set a given layer or revert to the base one if the given layer is already set
 void set_or_revert_default_layer(uint16_t layer) {
   if (sticky_layer == layer) { // The layer is already set, move to the base layer
@@ -352,21 +347,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, KC_UNDS, KC_PLUS, _______, _______, KC_PIPE,
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_MINS, KC_EQL,  _______, KC_COLN, KC_DQUO,
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, KC_LABK, KC_RABK, KC_QUES, LOWER,
-  _______, _______, _______, KC_LBRC,     _______,      LT_HYPER(KC_BSPC),KC_RBRC, _______, _______, _______
+  _______, _______, _______, KC_LBRC,     _______,      LT_HYPER(KC_ENT), KC_RBRC, _______, _______, _______
 ),
 
 [RAISE_LAYER] = LAYOUT_preonic_2x2u(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______, CTL_PUP, KC_UP,   CTL_PDN, _______, _______,
-  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______, MS_BTN2, KC_UP,   MS_BTN1, _______, _______, CTL_PUP, KC_UP,   CTL_PDN, _______, _______,
+  _______, _______, MS_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RAISE,
-  _______, _______, _______, KC_LBRC, LT_HYPER(KC_DEL),     _______,      KC_RBRC, _______, _______, _______
+  _______, _______, _______, KC_LBRC, LT_HYPER(KC_SPC),     _______,      KC_RBRC, _______, _______, _______
 ),
 
 [HYPER_LAYER] = LAYOUT_preonic_2x2u(
-  _______, _______, _______, _______, _______, KC_MUTE, KC_MPLY, _______, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
-  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_VOLU, KC_MNXT, _______, _______, _______, _______, _______,
-  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD, KC_MPRV, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, AU_TOGG, MU_TOGG, REM_RGB, QK_BOOT,
+  _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______, _______, _______, _______, _______, _______, _______,
   _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______, _______, _______, _______, _______, _______, HYPER,
   _______, _______, _______, KC_LABK,     _______,          _______,      KC_RABK, _______, HYPER,   _______
 )

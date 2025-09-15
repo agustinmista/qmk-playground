@@ -19,22 +19,11 @@
 #include "raw_hid.h"
 #include "print.h"
 
-// The keymap
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-  [0] = LAYOUT(LT(1, KC_F13), LT(2, KC_F14), LT(3, KC_F15)),
-  [1] = LAYOUT(      _______,       KC_F16,        KC_F17),
-  [2] = LAYOUT(      KC_F18,        _______,       KC_F19),
-  [3] = LAYOUT(      KC_F20,        KC_F21,        _______),
-
-};
-
 // LED intensity
 #define LED_INTENSITY 63
 
 // Raw HID echo
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-
   uint8_t hue = data[0];
   rgblight_sethsv_noeeprom(hue, 255, LED_INTENSITY);
   raw_hid_send(data, length);
@@ -74,3 +63,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
   return state;
 }
+
+// The keymap
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+  [0] = LAYOUT(LT(1, KC_F13), LT(2, KC_F14), LT(3, KC_F15)),
+  [1] = LAYOUT(      _______,       KC_F16,        KC_F17),
+  [2] = LAYOUT(      KC_F18,        _______,       KC_F19),
+  [3] = LAYOUT(      KC_F20,        KC_F21,        _______),
+
+};
+
