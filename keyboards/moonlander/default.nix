@@ -1,3 +1,5 @@
-{...}:{
+{ ... }:
+{
   keyboard = "zsa/moonlander";
+  src = ./.;
 }
