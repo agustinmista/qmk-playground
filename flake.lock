@@ -39,14 +39,15 @@
     "nixcaps": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "qmk_firmware": "qmk_firmware"
       },
       "locked": {
-        "lastModified": 1758052663,
-        "narHash": "sha256-kWNTVuzUgFmdjtCBKpfkrZoCt4H1vu/7MVcbyovokic=",
+        "lastModified": 1766998630,
+        "narHash": "sha256-ivLfAmP9F4sabPFqtNrtwP4pMUAsuNhl1h+otv2C8KI=",
         "owner": "agustinmista",
         "repo": "nixcaps",
-        "rev": "43ffca86bd1b5578245bb667db355e824eda5ad6",
+        "rev": "b0c77b3cc0e477bd3c99199538c7c90b9a5ce8b9",
         "type": "github"
       },
       "original": {
@@ -85,6 +86,25 @@
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
+      }
+    },
+    "qmk_firmware": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766111009,
+        "narHash": "sha256-mF5FLW2Z7i8FS9+6zlrincruofqPwdL1AIK+hToTino=",
+        "ref": "refs/heads/master",
+        "rev": "54e8fad959d6a6e53e08c62ac3a3c4d4bdc6c957",
+        "revCount": 29238,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/qmk/qmk_firmware"
+      },
+      "original": {
+        "rev": "54e8fad959d6a6e53e08c62ac3a3c4d4bdc6c957",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/qmk/qmk_firmware"
       }
     },
     "root": {
