@@ -1,5 +1,5 @@
-# Keyboard firmwares
-build
+# Keyboard stuff
+**/compile_commands.json
 # Direnv stuff
 .direnv/
 # Nix stuff

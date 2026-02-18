@@ -1,4 +1,3 @@
-{ ... }:
 {
   keyboard = "zsa/moonlander";
   src = ./.;

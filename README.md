@@ -5,8 +5,6 @@
 ## Usage
 
 ```bash
-$ # compile the firmware
-$ nix build .#<keyboard>
-$ # flash it (if a flasher script was provided)
-$ sudo ./result/bin/flash
+$ nix build .#<keyboard> # compile firmware
+$ nix run .#<keyboard> # compile and flash firmware
 ```
